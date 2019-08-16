@@ -54,9 +54,9 @@ Simply set the `namespace` prop on the `FlaggableProvider`
 
 ## Usage with React Portals
 
-A common UI workflow might be to have a list in the top of an app. And a list of items in the content section. If the
-application can't render both elements in the same tree. Using a Portal can allow implementors to render the flag elemtns
-anywhere they choose:
+A common UI workflow might be to have a flag counter in the top of an app. And a list of items available for flagging 
+in the content section. If the application can't render both elements in the same tree (usually when the entire application is not delivered by React). 
+Using a Portal can allow implementors to render the flag elements anywhere they choose:
 
 ```
 /**
@@ -64,14 +64,15 @@ anywhere they choose:
  * component tree.
  * @type {NodeListOf<Element>}
  */
-const flagDomNodes = document.querySelectorAll('.favorites-flag');
+
+const flagDomNodes = document.querySelectorAll('.favorites-flag'); // <-- These guys are down the page.
 const Flags = () => [...flagDomNodes].map(f => ReactDOM.createPortal(<Flag
   className="fa fa-heart"
   namespace="favorites"
   id={f.getAttribute('data-id')}
 />, f));
 
-const favoritesCounter = document.querySelector('.favorites-counter');
+const favoritesCounter = document.querySelector('.favorites-counter'); // <-- This guy is in the header.
 const favs = getItems('favorites');
 if (favoritesCounter) {
   ReactDOM.render(
