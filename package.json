@@ -6,7 +6,7 @@
   "scripts": {
     "coverage": "jest --coverage",
     "test": "jest",
-    "build": "cross-env BABEL_ENV=production webpack --config webpack.prod.js",
+    "build": "./node_modules/.bin/babel src --out-file dist/index.js",
     "start": "cross-env BABEL_ENV=development webpack-dev-server --host 0.0.0.0 --config ./webpack.dev.js"
   },
   "author": "ethan@bluetent.com",
