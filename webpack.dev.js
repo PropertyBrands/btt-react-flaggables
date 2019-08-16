@@ -7,27 +7,10 @@ module.exports = merge(common, {
   entry: {
     app: [
       '@babel/polyfill',
-      './index.jsx',
+      './demo/index.jsx',
     ],
   },
   mode: 'development',
-  module: {
-    rules: [
-      {
-        enforce: 'pre',
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-      },
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
-  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
   ],

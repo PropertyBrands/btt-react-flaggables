@@ -5,10 +5,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Flag from './src/components/flag';
-import FlagCounter from './src/components/counter';
-import FlaggableProvider from './src/context/flaggable';
-import { getItems } from './src/handlers/localStorage';
+import Flag from '../src/components/flag';
+import FlagCounter from '../src/components/counter';
+import FlaggableProvider from '../src/context/flaggable';
+import { getItems } from '../src/handlers/localStorage';
 
 const e = document.getElementById('thing');
 const namespace = 'ns-2';
