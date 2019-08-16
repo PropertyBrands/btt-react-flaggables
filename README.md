@@ -77,7 +77,7 @@ const favs = getItems('favorites');
 if (favoritesCounter) {
   ReactDOM.render(
     <FlaggableProvider
-      namespace="ecsm-favorites"
+      namespace="favorites"
       defaultState={{
         flagged: {
           'favorites': favs,
