@@ -20,8 +20,8 @@ const reactDOMExternal = {
 
 module.exports = merge(common, {
   entry: {
-    'react-modal': './src/index.js',
-    'react-modal.min': './src/index.js',
+    'react-flaggables': './src/index.js',
+    'react-flaggables.min': './src/index.js',
   },
 
   externals: {
