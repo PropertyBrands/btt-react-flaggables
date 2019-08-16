@@ -49,8 +49,47 @@ ReactDOM.render(
 
 ## Multiple Trees/Namespaces
 
-It is completely safe to maintain to separate trees of flagged items. 
+It is completely safe to maintain separate trees of flagged items. 
 Simply set the `namespace` prop on the `FlaggableProvider`
+
+## Usage with React Portals
+
+A common UI workflow might be to have a list in the top of an app. And a list of items in the content section. If the
+application can't render both elements in the same tree. Using a Portal can allow implementors to render the flag elemtns
+anywhere they choose:
+
+```
+/**
+ * Wrap flags in a portal so they can be rendered outside of the
+ * component tree.
+ * @type {NodeListOf<Element>}
+ */
+const flagDomNodes = document.querySelectorAll('.favorites-flag');
+const Flags = () => [...flagDomNodes].map(f => ReactDOM.createPortal(<Flag
+  className="fa fa-heart"
+  namespace="favorites"
+  id={f.getAttribute('data-id')}
+/>, f));
+
+const favoritesCounter = document.querySelector('.favorites-counter');
+const favs = getItems('favorites');
+if (favoritesCounter) {
+  ReactDOM.render(
+    <FlaggableProvider
+      namespace="ecsm-favorites"
+      defaultState={{
+        flagged: {
+          'favorites': favs,
+        },
+      }}
+    >
+      <FlagCounter namespace="favorites" label="Favorites" />
+      { flagDomNodes.length ? <Flags /> : null }
+    </FlaggableProvider>, favoritesCounter,
+  );
+}
+
+```
 
 ## Development and Testing
 
