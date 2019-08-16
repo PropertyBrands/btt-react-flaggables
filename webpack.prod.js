@@ -33,11 +33,22 @@ module.exports = merge(common, {
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/src',
+    publicPath: '/',
     libraryTarget: 'umd',
     library: 'ReactFlaggables',
   },
   mode: 'production',
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+    ],
+  },
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',
