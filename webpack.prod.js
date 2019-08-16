@@ -14,8 +14,8 @@ module.exports = merge(common, {
     ],
   },
   output: {
-    path: `${__dirname}/dist/bundle.js`,
-    filename: 'index.jsx',
+    path: `${__dirname}/dist`,
+    filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
   mode: 'production',
