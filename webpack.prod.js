@@ -5,18 +5,37 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const common = require('./webpack.common');
 
-const appEntryPath = path.resolve(__dirname, 'index.jsx');
+const reactExternal = {
+  root: 'React',
+  commonjs2: 'react',
+  commonjs: 'react',
+  amd: 'react',
+};
+const reactDOMExternal = {
+  root: 'ReactDOM',
+  commonjs2: 'react-dom',
+  commonjs: 'react-dom',
+  amd: 'react-dom',
+};
 
 module.exports = merge(common, {
   entry: {
-    app: [
-      appEntryPath,
-    ],
+    'react-modal': './src/index.js',
+    'react-modal.min': './src/index.js',
   },
+
+  externals: {
+    react: reactExternal,
+    'react-dom': reactDOMExternal,
+  },
+
   output: {
-    path: `${__dirname}/dist`,
-    filename: 'index.js',
-    libraryTarget: 'commonjs2',
+    filename: '[name].js',
+    chunkFilename: '[id].chunk.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/src',
+    libraryTarget: 'umd',
+    library: 'ReactFlaggables',
   },
   mode: 'production',
   module: {
@@ -37,9 +56,6 @@ module.exports = merge(common, {
       defaultSizes: 'gzip',
     }),
   ],
-  externals: {
-    react: 'commonjs react',
-  },
   optimization: {
     minimizer: [
       new TerserPlugin({
