@@ -5,13 +5,18 @@ const TerserPlugin = require('terser-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const common = require('./webpack.common');
 
-const appEntryPath = path.resolve(__dirname, './demo/index.jsx');
+const appEntryPath = path.resolve(__dirname, 'index.jsx');
 
 module.exports = merge(common, {
   entry: {
     app: [
       appEntryPath,
     ],
+  },
+  output: {
+    path: `${__dirname}/dist/bundle.js`,
+    filename: 'index.jsx',
+    libraryTarget: 'commonjs2',
   },
   mode: 'production',
   module: {
@@ -32,6 +37,9 @@ module.exports = merge(common, {
       defaultSizes: 'gzip',
     }),
   ],
+  externals: {
+    react: 'commonjs react',
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({
