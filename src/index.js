@@ -1,4 +1,4 @@
-import * as FlaggableProvider from './context/flaggable';
+import FlaggableProvider, { useFlaggableState, useFlaggable, useFlaggableDispatch } from './context/flaggable';
 import Flag from './components/flag';
 import FlagCounter from './components/counter';
 import { getItems } from './handlers/localStorage';
@@ -8,4 +8,7 @@ export {
   FlaggableProvider,
   FlagCounter,
   getItems,
+  useFlaggableState,
+  useFlaggable,
+  useFlaggableDispatch,
 };
