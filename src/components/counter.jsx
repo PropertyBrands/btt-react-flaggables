@@ -5,9 +5,9 @@ import {
 } from '../context/flaggable';
 
 const DefaultCounterBody = ({ namespace, label, count }) => (
-  <Fragment className={namespace}>
-    <span>{`(${count})`}</span>
-    <span>{`${label}`}</span>
+  <Fragment>
+    <span className={namespace}>{`(${count})`}</span>
+    <span className={namespace}>{`${label}`}</span>
   </Fragment>
 );
 
@@ -30,7 +30,7 @@ const FlaggableCounter = ({ namespace, label, CounterBody }) => {
 FlaggableCounter.propTypes = {
   namespace: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  CounterBody: PropTypes.node,
+  CounterBody: PropTypes.func,
 };
 
 FlaggableCounter.defaultProps = {

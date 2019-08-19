@@ -83,9 +83,9 @@ const FlaggableProvider = ({
 };
 
 FlaggableProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
+  children: PropTypes.oneOfType([PropTypes.array, PropTypes.node]).isRequired,
   defaultState: PropTypes.shape({
-    flagged: PropTypes.array,
+    flagged: PropTypes.object,
   }),
   namespace: PropTypes.string.isRequired,
   setItems: PropTypes.func,
