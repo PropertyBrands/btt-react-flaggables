@@ -4,7 +4,7 @@ import {
   useFlaggableState,
   defaultFlaggerCallback,
   useFlaggable,
-} from '../context/flaggable';
+} from '../context/flaggable.tsx';
 
 const isFlagged = (id, namespace) => {
   const { flagged } = useFlaggableState();

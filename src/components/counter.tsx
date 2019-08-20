@@ -4,7 +4,12 @@ import {
   useFlaggableState,
 } from '../context/flaggable';
 
-const FlaggableCounter = ({ namespace, label }) => {
+interface flaggableCounterProps {
+    namespace: string,
+    label: string
+}
+
+const FlaggableCounter: React.FC<flaggableCounterProps> = ({ namespace, label }) => {
   const { flagged } = useFlaggableState();
   const count = (flagged && flagged[namespace]) ? flagged[namespace].length : 0;
   return (

@@ -1,9 +1,6 @@
-/* eslint import/no-extraneous-dependencies: ["error", {devDependencies: true}] */
-const webpack = require('webpack');
-
 module.exports = {
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx', '.ts', '.tsx'],
   },
   output: {
     path: `${__dirname}`,
@@ -19,11 +16,16 @@ module.exports = {
         loader: 'eslint-loader',
       },
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.tsx?/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
       },
     ],
   },

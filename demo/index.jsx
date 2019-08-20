@@ -6,8 +6,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Flag from '../src/components/flag';
-import FlagCounter from '../src/components/counter';
-import FlaggableProvider from '../src/context/flaggable';
+import FlagCounter from '../src/components/counter.tsx';
+import FlaggableProvider from '../src/context/flaggable.tsx';
 import { getItems } from '../src/handlers/localStorage';
 
 const e = document.getElementById('thing');

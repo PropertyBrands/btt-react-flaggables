@@ -3,20 +3,42 @@ import React, {
   useReducer, createContext, useContext, useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
-import { setItems as setLocalStorageItems } from '../handlers/localStorage';
+const { setItems: setLocalStorageItems } = require('../handlers/localStorage');
 
-const initialState = { flagged: {} };
+const initialState = { flagged: {} } as FlaggableState;
 
-const FlaggableDispatchContext = createContext();
+const FlaggableDispatchContext = createContext(undefined);
 const FlaggableStateContext = createContext(initialState);
+
+enum ActionType {
+    removeItem = 'REMOVE_ITEM',
+    addItem = 'ADD_ITEM',
+    setItems = 'SET_ITEMS',
+}
+
+type Action = {
+    type?: ActionType,
+    namespace: string,
+    value: string,
+}
+
+interface CheckedValues {
+    [index: string]: string | string[],
+}
+
+interface FlaggedType {
+    [namespace: string]: string[]
+}
+
+type FlaggableState = {
+    flagged: FlaggedType,
+    checkedValues?: CheckedValues,
+}
 
 /**
  * Handle state changes in the flaggable component.
- * @param state
- * @param action
- * @returns {*}
  */
-const reducer = (state, action) => {
+const reducer = (state: FlaggableState, action: Action): FlaggableState => {
   const { type, namespace, value } = action;
   const { flagged } = state;
   const namespaceFlags = (flagged && flagged[namespace]) || [];
@@ -55,6 +77,13 @@ const reducer = (state, action) => {
   }
 };
 
+interface FlaggableProviderProps {
+    children: React.ElementType,
+    defaultState: FlaggableState,
+    setItems: (namespace: string, namespaceItems: any[]) => boolean | void
+    namespace: string,
+}
+
 /**
  * HOC for providing the wrapping elements.
  * @param children
@@ -64,8 +93,8 @@ const reducer = (state, action) => {
  * @returns {*}
  * @constructor
  */
-const FlaggableProvider = ({
-  children, defaultState, setItems, namespace,
+const FlaggableProvider: React.FC<FlaggableProviderProps> = ({
+  children, defaultState = initialState, setItems = setLocalStorageItems, namespace,
 }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
   const { flagged } = state;
@@ -80,20 +109,6 @@ const FlaggableProvider = ({
       </FlaggableDispatchContext.Provider>
     </FlaggableStateContext.Provider>
   );
-};
-
-FlaggableProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
-  defaultState: PropTypes.shape({
-    flagged: PropTypes.array,
-  }),
-  namespace: PropTypes.string.isRequired,
-  setItems: PropTypes.func,
-};
-
-FlaggableProvider.defaultProps = {
-  defaultState: initialState,
-  setItems: setLocalStorageItems,
 };
 
 /**
@@ -134,12 +149,12 @@ const useFlaggable = () => [useFlaggableState(), useFlaggableDispatch()];
  * @param dispatch
  * @returns {Function}
  */
-const defaultFlaggerCallback = (value, namespace, state, dispatch) => {
+const defaultFlaggerCallback = (value: string, namespace: string, state: FlaggableState, dispatch: (action: Action) => any) => {
   const { flagged: currentFlags } = state;
   const flagged = (currentFlags && currentFlags[namespace]) || [];
   const type = flagged.indexOf(value) !== -1
-    ? 'REMOVE_ITEM'
-    : 'ADD_ITEM';
+    ? 'REMOVE_ITEM' as ActionType
+    : 'ADD_ITEM' as ActionType;
   dispatch({
     type,
     namespace,

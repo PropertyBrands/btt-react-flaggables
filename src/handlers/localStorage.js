@@ -21,9 +21,9 @@ const getItems = (namespace) => {
 
 /**
  * Function that sets items in local storage.
- * @param namespace
- * @param ids
- * @returns {*}
+ * @param namespace<string>
+ * @param ids<string[]>
+ * @returns {void|boolean}
  */
 const setItems = (namespace, ids) => {
   const ns = getLocalStorageNameSpace(namespace);
