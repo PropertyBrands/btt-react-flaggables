@@ -38,17 +38,6 @@ module.exports = merge(common, {
     library: 'ReactFlaggables',
   },
   mode: 'production',
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-    ],
-  },
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: 'static',

@@ -1,6 +1,6 @@
-import FlaggableProvider from './context/flaggable';
+import FlaggableProvider from './context/flaggable.tsx';
 import Flag from './components/flag';
-import FlagCounter from './components/counter';
+import FlagCounter from './components/counter.tsx';
 import { getItems } from './handlers/localStorage';
 
 export {
