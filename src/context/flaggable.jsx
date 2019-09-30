@@ -45,7 +45,7 @@ const reducer = (state, action) => {
     case 'SET_ITEMS':
       return {
         ...state,
-        checkedValues: {
+        flagged: {
           ...flagged,
           [namespace]: value,
         },
